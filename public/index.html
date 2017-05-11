@@ -1,5 +1,6 @@
 
 <html ng-app="mittens">
+
 <head>
 	<title>Mittens</title>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
@@ -9,25 +10,36 @@
 	<script type="text/javascript" src="angular-cookies.js"></script>
 	
 	<script type="text/javascript">
-		var app = angular.module('mittens',[]);
+		var app = angular.module('mittens',['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
    .when('/', {
     templateUrl: 'home.html',
-    controller: 'HomeController',
+    controller:
+	 'HomeController',
 })
+
 .when('/signup', {
     templateUrl: 'signup.html',
     controller: 'SignupController',
 });   
+
   });
 
 		app.controller('HomeController', function($scope,$http){	
 
+function getMeows(){
+		$http.get('/meows').then(function(responce){
+				$scope.meows=responce.data;
+			});		
+}
+getMeows();
+
+
 		});
 
-app.controller('SignupController', function($scope,$http){
+app.controller('SignupCotroller', function($scope,$http){
 	
 	console.log('You are on the Signup Page');
 });
